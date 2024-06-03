@@ -1,0 +1,70 @@
+﻿@using AWSServerlessApiEventos.Models
+@using Newtonsoft.Json
+@model IEnumerable<AWSServerlessApiEventos.Models.Evento>
+
+@{
+    ViewData["Title"] = "Index";
+    List<Categoria> categorias = ViewBag.categorias;
+}
+
+<h1>Index</h1>
+
+<p>
+    <select id="categorySelect" onchange="navigateToCategory()">
+        @foreach(Categoria categoria in categorias)
+        {
+            <option value="@categoria.Id">
+                @categoria.Name
+            </option>
+        }
+    </select>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Artist)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdCategory)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Image)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Artist)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdCategory)
+            </td>
+            <td>
+                <img src="@item.Image" style="max-height:60px; max-width:60px"/>
+            </td>      
+        </tr>
+}
+    </tbody>
+</table>
+
+
+@section Scripts {
+    <script>
+    function navigateToCategory() {
+        var selectElement = document.getElementById("categorySelect");
+        var selectedValue = selectElement.value;
+            window.location.href = window.location.origin + "/EventosCategoria/" + selectedValue;
+    }
+</script>
+
+}
